@@ -1,5 +1,6 @@
 <script lang=ts>
 	import SplitPane from "./lib/SplitPane5.svelte";
+	import KonvaTest from "./lib/KonvaTest.svelte";
 </script>
 
 <div class="demo">
@@ -11,6 +12,7 @@
 	{#snippet a()}
 	  <section style="background: lightblue">
 		<!---->
+		<KonvaTest></KonvaTest>
 	  </section>
 	{/snippet}
 
