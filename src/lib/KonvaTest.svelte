@@ -10,49 +10,26 @@
   // import type { Stage } from 'konva_web/lib/core';
   import { onMount, setContext } from "svelte";
 
-  let width = 0;
-  let height = 0;
-  // console.log("0")
+  let width = $state(0);
+  let height = $state(0);
 
-  // var stage = new Konva.Stage({
-  //   // container: "container",
-  //   width: width,
-  //   height: height,
+  let sceneWidth = 1000;
+  let sceneHeight = 1000/16*9;
+
+  // setContext("konva", {
+  //   getStage: () => stage,
   // });
 
-  // console.log("one")
 
-  // var layer = new Layer.Layer();
-
-  //     var oval = new Ellipse.Ellipse({
-  //       x: stage.width() / 2,
-  //       y: stage.height() / 2,
-  //       radiusX: 100,
-  //       radiusY: 50,
-  //       fill: 'yellow',
-  //       stroke: 'black',
-  //       strokeWidth: 4,
-  //     });
-
-  //     // add the shape to the layer
-  //     layer.add(oval);
-
-  //     // add the layer to the stage
-  //     stage.add(layer);
-
-  // console.log("2")
-
-  setContext("konva", {
-    getStage: () => stage,
-  });
+  
 
   let container;
   let stage;
   onMount(() => {
     stage = new Konva.Stage({
       container: container,
-      width: 600,
-      height: 400,
+      width: sceneWidth,
+      height: sceneHeight,
     });
 
     var layer = new Konva.Layer();
@@ -60,10 +37,10 @@
     var oval = new Konva.Ellipse({
       x: stage.width() / 2,
       y: stage.height() / 2,
-      radiusX: 100,
-      radiusY: 50,
+      radiusX: 300,
+      radiusY: 300,
       fill: "yellow",
-      stroke: "black",
+      stroke: "green",
       strokeWidth: 4,
     });
 
@@ -72,6 +49,24 @@
 
     // add the layer to the stage
     stage.add(layer);
+
+    const resizeObserver = new ResizeObserver(() => {
+      width = container.clientWidth;
+      height = width/16*9;
+
+      var scale = width / sceneWidth;
+
+      stage.width(width);
+      stage.height(height);
+      stage.scale({ x: scale, y: scale });
+      stage.draw();
+    });
+
+    resizeObserver.observe(container);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
   });
 </script>
 
@@ -83,8 +78,8 @@
 ></div>
 
 <style>
-  #container {
+  /* #container {
     width: 100%;
     height: 200px;
-  }
+  } */
 </style>
