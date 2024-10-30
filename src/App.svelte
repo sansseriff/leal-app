@@ -1,12 +1,11 @@
 <script lang=ts>
 	import SplitPane from "./lib/SplitPane5.svelte";
 	import KonvaTest from "./lib/KonvaTest.svelte";
+	// import KonvaDragTest from "./lib/KonvaDragTest.svelte";
 </script>
 
 <div class="demo">
-	<!-- <header>
-		<h1>svelte-split-pane</h1>
-	</header> -->
+
 	<main>
 
 	{#snippet a()}
